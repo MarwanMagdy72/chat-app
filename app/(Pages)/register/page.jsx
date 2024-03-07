@@ -9,6 +9,7 @@ import { auth, firestore } from "@/app/Firebase/Firebase";
 import { doc, setDoc } from "firebase/firestore";
 import { HiInformationCircle } from "react-icons/hi";
 import { Alert } from "flowbite-react";
+import Image from "next/image";
 
 function RegisterForm() {
   const [name, setName] = useState("");
@@ -132,10 +133,12 @@ function RegisterForm() {
           </div>
 
           <div className="flex justify-between items-center  border border-gray-200 p-3 rounded">
-            <img
+            <Image
               src={avatarUrl}
               alt="avatar"
               className="w-20 h-20 rounded-full"
+              width={20}
+              height={20}
             />
             <Button onClick={handleAvatarRefresh} type="button">
               New Avatar

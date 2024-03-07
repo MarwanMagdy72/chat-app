@@ -1,4 +1,5 @@
 import moment from "moment";
+import Image from "next/image";
 import React from "react";
 
 function MessageCard({ message, me, other }) {
@@ -26,7 +27,9 @@ function MessageCard({ message, me, other }) {
 
         {
           !isMessageFromMe &&(
-            <img
+            <Image
+              width={10}
+    height={10}
               src={other.avatarUrl}
               alt="avatar"
               className={` w-10 h-10 rounded-full object-cover me-2 ms-2`}
@@ -36,7 +39,9 @@ function MessageCard({ message, me, other }) {
         }
         {
           isMessageFromMe &&(
-            <img
+            <Image
+              width={10}
+    height={10}
               src={me.avatarUrl}
               alt="avatar"
               className={` rounded-full object-cover w-10 h-10  ms-2 `}
@@ -56,7 +61,10 @@ function MessageCard({ message, me, other }) {
         >
           {
             message.image&&(
-              <img className='w-60 h-60  mb-2 object-cover rounded-md'
+              <Image
+                width={60}
+    height={60} 
+              className='w-60 h-60  mb-2 object-cover rounded-md'
               src={message.image}
               alt='Message'
               />

@@ -9,6 +9,7 @@ import {
   uploadBytesResumable,
 } from "firebase/storage";
 import { Button, Modal, Progress } from "flowbite-react";
+import Image from "next/image";
 
 function MessageInput({ sendMessage, setMessage, message, image, setImage }) {
   const storage = getStorage(app);
@@ -96,10 +97,12 @@ function MessageInput({ sendMessage, setMessage, message, image, setImage }) {
 {/* modal to choose image */}
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         {imagePreview && (
-          <img
+          <Image
             src={imagePreview}
             alt="Image Preview"
             className="max-h-60 w-60 mb-4 m-2"
+            width={60}
+            height={60}
           />
         )}
         <input

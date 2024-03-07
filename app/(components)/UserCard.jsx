@@ -1,3 +1,4 @@
+import Image from "next/image";
 import React from "react";
 
 function UserCard({ name, avatarUrl, latestMessage, time, type }) {
@@ -5,10 +6,12 @@ function UserCard({ name, avatarUrl, latestMessage, time, type }) {
     <div className="flex items-center p-4  relative hover:cursor-pointer">
       <div className="flex-shrink-0 mr-4 relative">
         <div className="w-12 h-12 rounded-full">
-          <img
+          <Image
             src={avatarUrl}
             alt="avatar"
             className="w-full h-full object-cover"
+            width={12}
+            height={12}
           />
         </div>
       </div>

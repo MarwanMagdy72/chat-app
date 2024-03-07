@@ -5,6 +5,7 @@ import {
   faAngleLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Image from "next/image";
 import React from "react";
 
 function ChatRoomHeader({other}) {
@@ -27,10 +28,12 @@ function ChatRoomHeader({other}) {
       <div className="flex items-center justify-between  border-b  p-7  bg-gray-100 shadow-md sticky top-0 left-0 right-0 w-100" >
       <div className="UserData flex justify-start items-center">
   <FontAwesomeIcon icon={faAngleLeft} className='me-4 text-3xl text-blue-600 back-icon hidden cursor-pointer' onClick={() => handleBackIconClick()} />
-  <img
+  <Image
     src={other?.avatarUrl}
     alt="UserAvatar"
     className="w-14 h-14 rounded-full object-cover me-4"
+    width={14}
+    height={14}
   />
   <h4 className="font-bold text-xl ">
     {/* Truncate name on screens smaller than md (tailwind class: md:hidden) */}

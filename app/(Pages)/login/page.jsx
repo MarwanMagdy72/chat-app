@@ -1,6 +1,5 @@
 "use client";
-
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Button, Card, Label, Spinner, TextInput } from "flowbite-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -9,23 +8,17 @@ import { auth } from "@/app/Firebase/Firebase";
 import { HiInformationCircle } from "react-icons/hi";
 import { Alert } from "flowbite-react";
 
-
 function Login() {
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const router = useRouter();
 
-
-  const validForm = () => {
+  const validateForm = () => {
     const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     const newErrors = {};
-
- 
 
     if (!email.trim()) {
       newErrors.email = "Email is required!";
@@ -43,7 +36,6 @@ function Login() {
       newErrors.password = "";
     }
 
-
     setErrors(newErrors);
     return Object.keys(newErrors).every((key) => !newErrors[key]);
   };
@@ -51,36 +43,44 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage("");
 
-    try{
-
-      if (!validForm()) {
+    try {
+      if (!validateForm()) {
         setLoading(false);
         return;
       }
-      const userCredential = await signInWithEmailAndPassword(auth,email,password);
+      
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
 
-      if(user){
-
+      if (user) {
         setEmail("");
         setPassword("");
         setLoading(false);
         router.push('/');
-      }}catch(error){
-      console.log(error);
+      }
+    } catch (error) {
+      console.error(error);
       setLoading(false);
       let errorMessage = "An error occurred during login.";
-      if (error.code === "auth/user-not-found") {
-        errorMessage = "No user found with this email address.";
-      } else if (error.code === "auth/wrong-password") {
-        errorMessage = "Incorrect password.";
-      } else if (error.code === "auth/invalid-email") {
-        errorMessage = "Invalid email address.";
+
+      switch (error.code) {
+        case "auth/user-not-found":
+          errorMessage = "No user found with this email address.";
+          break;
+        case "auth/wrong-password":
+          errorMessage = "Incorrect password.";
+          break;
+        case "auth/invalid-email":
+          errorMessage = "Invalid email address.";
+          break;
+        default:
+          break;
       }
+
       setErrorMessage(errorMessage);
     }
-
   };
 
   return (
@@ -89,18 +89,15 @@ function Login() {
         <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
           <div className="header">
             <header>
-              <h1 className="font-bold text-center text-2xl">
-               Sign In
-              </h1>
+              <h1 className="font-bold text-center text-2xl">Sign In</h1>
             </header>
           </div>
+
           {errorMessage && (
             <Alert color="failure" icon={HiInformationCircle}>
-              <span className="font-medium"></span> {errorMessage}
+              <span className="font-medium">{errorMessage}</span>
             </Alert>
           )}
-
-
 
           <div>
             <div className="mb-2 block">
@@ -113,9 +110,7 @@ function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            {errors.email && (
-              <small className="text-red-500 ms-3 mt-1 ">{errors.email}</small>
-            )}
+            {errors.email && <small className="text-red-500 ms-3 mt-1">{errors.email}</small>}
           </div>
 
           <div>
@@ -128,32 +123,20 @@ function Login() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
-            {errors.password && (
-              <small className="text-red-500 ms-3 mt-1 ">
-                {errors.password}
-              </small>
-            )}
+            {errors.password && <small className="text-red-500 ms-3 mt-1">{errors.password}</small>}
           </div>
 
-
-
           <Button type="submit" disabled={loading}>
-            {loading ? (
-              <Spinner aria-label="Default status example" />
-            ) : (
-              "Sign In"
-            )}
+            {loading ? <Spinner aria-label="Default status example" /> : "Sign In"}
           </Button>
         </form>
 
-        <h4 className="text-center ">
-          Don't have an account?{" "}
+        <h4 className="text-center">
+        Don&apos;t have an account?
           <Link href="/register" className="text-blue-600">
-            sign up{" "}
+            Sign up
           </Link>
         </h4>
-
-   
       </Card>
     </div>
   );
