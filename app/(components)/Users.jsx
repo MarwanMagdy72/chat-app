@@ -1,3 +1,5 @@
+
+
 import React, { useState, useEffect } from "react";
 import moment from "moment"; // Import Moment.js
 import UserCard from "./UserCard";
@@ -22,7 +24,7 @@ import UserData from "./UserData";
 import { TextInput } from "flowbite-react";
 
 function formatTimeAgo(timestamp) {
-  return moment(timestamp).fromNow(); 
+  return moment(timestamp).fromNow();
 }
 
 function Users({ userData, setSelectedChatRoom }) {
@@ -159,18 +161,20 @@ function Users({ userData, setSelectedChatRoom }) {
 
   // Filter users based on search query
   const filteredUsers = users.filter((user) =>
-    user.name.toLowerCase().includes(searchQuery.toLowerCase())
+    user.name && user.name.toLowerCase().includes(searchQuery?.toLowerCase())
   );
 
   // Filter chat rooms based on search query
   const filteredChatRooms = userChatRooms.filter((chat) =>
-    chat.usersData[Object.keys(chat.usersData).find((id) => id !== userData?.id)].name
-      .toLowerCase()
+    chat.usersData[
+      Object.keys(chat.usersData).find((id) => id !== userData?.id)
+    ].name
+      ?.toLowerCase()
       .includes(searchQuery.toLowerCase())
   );
+
   const handleUserCardClick = () => {
     if (window.innerWidth < 800 && activeTab === "chatRooms") {
-     
       const element = document.getElementById("users");
       if (element) {
         element.style.display = "none";
@@ -181,13 +185,16 @@ function Users({ userData, setSelectedChatRoom }) {
       }
     }
   };
-  
+
   return (
     <>
-      <div className="shadow-lg min-h-screen overflow-auto    users " id='users'>
+      <div
+        className="shadow-lg min-h-screen overflow-auto    users "
+        id="users"
+      >
         <UserData userData={userData} />
 
-        <div className='mx-5'>
+        <div className="mx-5">
           <TextInput
             id="search"
             type="text"
@@ -200,19 +207,24 @@ function Users({ userData, setSelectedChatRoom }) {
 
         <div className="flex justify-between p-4">
           <Button
-            gradientDuoTone={activeTab === "users" ? "cyanToBlue" : "purpleToBlue"}
+            gradientDuoTone={
+              activeTab === "users" ? "cyanToBlue" : "purpleToBlue"
+            }
             onClick={() => handleTabClick("users")}
           >
             Users
           </Button>
           <Button
             onClick={() => handleTabClick("chatRooms")}
-            gradientDuoTone={activeTab === "chatRooms" ? "cyanToBlue" : "purpleToBlue"}
+            gradientDuoTone={
+              activeTab === "chatRooms" ? "cyanToBlue" : "purpleToBlue"
+            }
           >
             Chats
           </Button>
           <Button onClick={handleLogOut}>
-            LogOut <FontAwesomeIcon icon={faRightFromBracket} className="ms-2" />
+            LogOut{" "}
+            <FontAwesomeIcon icon={faRightFromBracket} className="ms-2" />
           </Button>
         </div>
 
@@ -235,16 +247,24 @@ function Users({ userData, setSelectedChatRoom }) {
                     <UserCard
                       name={
                         chat.usersData[
-                          Object.keys(chat.usersData).find((id) => id !== userData?.id)
+                          Object.keys(chat.usersData).find(
+                            (id) => id !== userData?.id
+                          )
                         ].name
                       }
                       avatarUrl={
                         chat.usersData[
-                          Object.keys(chat.usersData).find((id) => id !== userData?.id)
+                          Object.keys(chat.usersData).find(
+                            (id) => id !== userData?.id
+                          )
                         ].avatarUrl
                       }
                       latestMessage={chat.lastMessage}
-                      time={chat.timestamp ? formatTimeAgo(chat.timestamp.toDate()) : ''}
+                      time={
+                        chat.timestamp
+                          ? formatTimeAgo(chat.timestamp.toDate())
+                          : ""
+                      }
                       type={"chat"}
                     />
                   </div>
@@ -264,25 +284,30 @@ function Users({ userData, setSelectedChatRoom }) {
                 </>
               ) : (
                 filteredUsers.map((user) => (
-                  <div  
-                    key={user.id} 
-                    className={!disabledUsers.includes(user.id) && activeTab === "chatRooms" ? "hidden" : ""} // Hide user card in chatRooms tab if user is not disabled
+                  <div
+                    key={user.id}
+                    className={
+                      !disabledUsers.includes(user.id) &&
+                      activeTab === "chatRooms"
+                        ? "hidden"
+                        : ""
+                    } // Hide user card in chatRooms tab if user is not disabled
                   >
-                    <div className='flex  w-100  items-center justify-between me-6  border-b border-gray-200'>
+                    <div className="flex  w-100  items-center justify-between me-6  border-b border-gray-200">
                       <UserCard
                         key={user.id}
                         name={user.name}
                         type={"users"}
                         avatarUrl={user.avatarUrl}
-                      
-                      /> 
-                    <Button 
-                      onClick={() => createChat(user)} 
-                      outline gradientDuoTone="cyanToBlue"
-                      disabled={disabledUsers.includes(user.id)} // Disable button if user ID is in disabledUsers array
-                    >
-                      Add user
-                    </Button>
+                      />
+                      <Button
+                        onClick={() => createChat(user)}
+                        outline
+                        gradientDuoTone="cyanToBlue"
+                        disabled={disabledUsers.includes(user.id)} // Disable button if user ID is in disabledUsers array
+                      >
+                        Add user
+                      </Button>
                     </div>
                   </div>
                 ))

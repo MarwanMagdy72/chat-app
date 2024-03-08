@@ -59,12 +59,12 @@ function MessageInput({ sendMessage, setMessage, message, image, setImage }) {
   };
 
   const handleSendMessage = () => {
-    if (!message.trim()) {
+    if (!message?.trim()) {
       alert("Please enter a message before sending.");
       return;
     }
     sendMessage();
-    setMessage(null);
+    setMessage("");
     setImage(null);
   };
 
@@ -91,6 +91,7 @@ function MessageInput({ sendMessage, setMessage, message, image, setImage }) {
         icon={faPaperPlane}
         className="text-blue-600 mr-2 text-lg  cursor-pointer"
         onClick={handleSendMessage}
+        
       />
 
       
