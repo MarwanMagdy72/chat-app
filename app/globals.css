@@ -45,4 +45,17 @@
     display:none;
   }
 
+  .chat-header{
+    padding-block:0.8rem !important;
+  }
+  .chat-header .chat-header-avatar{
+    width:1.9rem;
+    height:1.9rem;
+    margin-right:0.5rem;
+  }
+
+  .message-box {
+    min-width:100px !important ;
+  }
+
 }

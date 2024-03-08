@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaperclip, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
+import { faImage, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { app } from "../Firebase/Firebase";
+
 import {
   getDownloadURL,
   getStorage,
@@ -11,13 +12,12 @@ import {
 import { Button, Modal, Progress } from "flowbite-react";
 import Image from "next/image";
 
-function MessageInput({ sendMessage, setMessage, message, image, setImage }) {
+function MessageInput({ sendMessage, setMessage, message = "", image, setImage }) {
   const storage = getStorage(app);
   const [file, setFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
   const [openModal, setOpenModal] = useState(false);
-  
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
@@ -59,8 +59,8 @@ function MessageInput({ sendMessage, setMessage, message, image, setImage }) {
   };
 
   const handleSendMessage = () => {
-    if (!message?.trim()) {
-      alert("Please enter a message before sending.");
+    if (!message?.trim() && !image) {
+      alert("Please enter a message or choose an image before sending.");
       return;
     }
     sendMessage();
@@ -69,33 +69,28 @@ function MessageInput({ sendMessage, setMessage, message, image, setImage }) {
   };
 
   return (
-    <div className="flex items-center p-4 border-t border-gray-200 message-input bg-white  ">
+    <div className="flex items-center p-4 border-t border-gray-200 message-input bg-white  px-4">
       <FontAwesomeIcon
-        icon={faPaperclip}
-        className={`  mr-2 cursor-pointer text-lg ${
-          image ? "text-blue-500  " : " text-gray-500"
-        }   `}
+        icon={faImage}
+        className={`mr-2 cursor-pointer text-lg ${
+          image ? "text-blue-500" : "text-gray-500"
+        }`}
         onClick={() => setOpenModal(true)}
       />
-<input
-  type="text"
-  placeholder="Type a message ..."
-  className="flex-1 mx-4  border-none  focus:border-none p-2 outline-none"
-  value={message}
-  onChange={(e) => {
-    setMessage(e.target.value);
-  }}
-/>
-
+      <input
+        type="text"
+        placeholder="Type a message ..."
+        className="flex-1 mx-4 border-none focus:border-none p-2 outline-none"
+        value={message}
+        onChange={(e) => setMessage(e.target.value)}
+      />
       <FontAwesomeIcon
         icon={faPaperPlane}
-        className="text-blue-600 mr-2 text-lg  cursor-pointer"
+        className="text-blue-600 mr-2 text-lg cursor-pointer"
         onClick={handleSendMessage}
-        
       />
 
-      
-{/* modal to choose image */}
+      {/* modal to choose image */}
       <Modal show={openModal} onClose={() => setOpenModal(false)}>
         {imagePreview && (
           <Image
@@ -110,7 +105,7 @@ function MessageInput({ sendMessage, setMessage, message, image, setImage }) {
           type="file"
           accept="image/*"
           onChange={handleFileChange}
-          className="mb-4 m-2 "
+          className="mb-4 m-2"
         />
         <Button
           onClick={handleUpload}

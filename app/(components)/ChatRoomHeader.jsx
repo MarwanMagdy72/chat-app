@@ -25,17 +25,17 @@ function ChatRoomHeader({other}) {
   };
   return (
     <>
-      <div className="flex items-center justify-between  border-b  p-7  bg-gray-100 shadow-md sticky top-0 left-0 right-0 w-100" >
+      <div className="flex items-center justify-between  border-b  p-4  bg-gray-100 shadow-md sticky top-0 left-0 right-0 w-100 chat-header" >
       <div className="UserData flex justify-start items-center">
   <FontAwesomeIcon icon={faAngleLeft} className='me-4 text-3xl text-blue-600 back-icon hidden cursor-pointer' onClick={() => handleBackIconClick()} />
   <Image
     src={other?.avatarUrl}
     alt="UserAvatar"
-    className="w-14 h-14 rounded-full object-cover me-4"
+    className="w-14 h-14 rounded-full object-cover me-4 chat-header-avatar"
     width={14}
     height={14}
   />
-  <h4 className="font-bold text-xl ">
+  <h4 className="font-bold lg:text-xl ">
     {/* Truncate name on screens smaller than md (tailwind class: md:hidden) */}
     <span className="hidden md:inline">
       {other?.name}
@@ -48,9 +48,9 @@ function ChatRoomHeader({other}) {
 
 
         <div className="flex justify-end items-center">
-          <FontAwesomeIcon icon={faPhone}  className=' text-xl text-blue-600 cursor-pointer '/>
-          <FontAwesomeIcon className="mx-4 text-xl text-blue-600 cursor-pointer" icon={faVideo}  />
-          <FontAwesomeIcon icon={faCircleInfo}  className=' text-xl text-blue-600  cursor-pointer'/>
+          <FontAwesomeIcon icon={faPhone}  className=' lg:text-xl text-blue-600 cursor-pointer '/>
+          <FontAwesomeIcon className="mx-4 lg:text-xl text-blue-600 cursor-pointer" icon={faVideo}  />
+          <FontAwesomeIcon icon={faCircleInfo}  className=' lg:text-xl text-blue-600  cursor-pointer'/>
 
         </div>
       </div>

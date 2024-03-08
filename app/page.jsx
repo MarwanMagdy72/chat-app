@@ -32,6 +32,7 @@ function Home() {
   }, [auth, router]);
 
   return (
+    
     <>
       <div className="  flex h-screen flex-wrap ">
         {/* Left */}

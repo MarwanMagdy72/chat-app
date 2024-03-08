@@ -52,7 +52,7 @@ function MessageCard({ message, me, other }) {
         {/* Handle Message Position */}
 
         <div
-          className={`text-white p-2 rounded-md ${
+          className={`message-box  text-white  p-2 rounded-md    ${
             isMessageFromMe
               ? "bg-slate-500  self-start "
               : "bg-cyan-950 self-start"
@@ -62,9 +62,9 @@ function MessageCard({ message, me, other }) {
           {
             message.image&&(
               <Image
-                width={60}
-    height={60} 
-              className='w-60 h-60  mb-2 object-cover rounded-md'
+                width={300}
+    height={300} 
+              className='mb-2 object-cover rounded-md'
               src={message.image}
               alt='Message'
               />

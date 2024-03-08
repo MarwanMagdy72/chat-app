@@ -1,7 +1,7 @@
 
 
 import React, { useState, useEffect } from "react";
-import moment from "moment"; // Import Moment.js
+import moment from "moment"; 
 import UserCard from "./UserCard";
 import { Button } from "flowbite-react";
 import { firestore, app } from "@/app/Firebase/Firebase";
@@ -34,7 +34,7 @@ function Users({ userData, setSelectedChatRoom }) {
   const [users, setUsers] = useState([]);
   const [userChatRooms, setUserChatRooms] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  const [disabledUsers, setDisabledUsers] = useState([]); // State to store disabled user IDs
+  const [disabledUsers, setDisabledUsers] = useState([]); 
   const auth = getAuth(app);
   const router = useRouter();
 
