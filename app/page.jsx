@@ -34,19 +34,19 @@ function Home() {
   return (
     
     <>
-      <div className="  flex h-screen flex-wrap ">
+      <div className="  flex   flex-wrap">
         {/* Left */}
-        <div className="flex-shrink-0 w-3/12  users-side "  id='users-side'>
-          {" "}
-          <Users  userData={user}   selectedChatRoom={selectedChatRoom}  setSelectedChatRoom={setSelectedChatRoom} />{" "}
-        </div>
+        <div className="flex-shrink-0 w-3/12 users-side max-h-screen overflow-y-auto" id='users-side'>
+  <Users userData={user} selectedChatRoom={selectedChatRoom} setSelectedChatRoom={setSelectedChatRoom} />
+</div>
+
         {/* Right */}
-        <div className="flex-grow w-3/12 flex items-center justify-center bg-gray-200 "  id="EmptyChatRoom">
+        <div className="flex-grow w-3/12 flex items-center justify-center bg-gray-200 max-h-screen "  id="EmptyChatRoom">
           {" "}
           <h3 className=' shadow-lg p-5 rounded-full bg-gray-300'> Select a chat to start messaging  </h3>
           
         </div>
-        <div className="flex-grow w-3/12 chatRoom-side hidden"  id="chatRoom">
+        <div className="flex-grow w-3/12 chatRoom-side hidden max-h-screen"  id="chatRoom">
           {" "}
           <ChatRoom user={user}   selectedChatRoom={selectedChatRoom}/>{" "}
 

@@ -78,7 +78,7 @@ function ChatRoom({ selectedChatRoom }) {
 
   return (
     <>
-<div className="flex flex-col h-screen    " id="chat">
+<div className="flex flex-col max-h-screen    " id="chat">
   {/* Header */}
   <div className="sticky top-0 bg-white">
     <ChatRoomHeader other={other} />
